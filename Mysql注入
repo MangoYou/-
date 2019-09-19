@@ -1,0 +1,31 @@
+Mysql数据库：
+  关系型数据库，Oracle公司旗下
+  LAMP平台，一般用于linux系统+apacheWeb容器+mysql数据库+php脚本语言
+  使用yum安装mysql： yum -y install mysql mysql-server
+                    service mysqld start
+                    mysql -uroot -ppassword
+  创建数据库：CREATE DATABASE xxx
+  删除数据库：DROP DATABASE xxx
+  创建新表：CREATE TABLE MYTABLE(name VARCHAR(20),sex CHAR(1));
+  查看数据库：show databases;
+  Mysql数据库函数：
+    1、system_user() ：系统用户名
+    2、user() ：用户名
+    3、current_user() ：当前用户名
+    4、session_user() ：连接数据库的用户名
+    5、database() ：数据库名
+    6、version() ：数据库版本
+    7、load_file() ：转成16进制或者10进制MYSQL读取本地文件的函数
+    8、@@datadir ：读取数据库路径
+    9、@@basedir ：Mysql安装路径
+    10、@@version_compile_os ：操作系统
+  Mysql数据库连接：
+    一般位于/inc/目录下：
+    <?php
+    //数据库配置文件
+    $host='localhost';
+    $database='test';
+    $user='root';
+    $pass='password';
+    $webml='/www/';
+    ?>
