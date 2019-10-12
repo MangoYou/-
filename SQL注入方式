@@ -1,0 +1,9 @@
+根据数据提交方式分为GET,POST,COOKIE注入
+GET方式：
+  常见HTTP提交方式，参数在url中
+  
+POST方式：
+  常用于表单提交，登录框的注入
+  
+Cookie注入：
+  
