@@ -7,3 +7,11 @@ POST方式：
   
 Cookie注入：
   
+  cookie用于提交账号密码的cookie缓存，有时候可以通过cookie绕过简单的防注入系统
+  工具：注入中转生成器
+  
+伪静态注入：
+  xxx.com/index.php/index/id/111.htm
+  去掉.htm查看页面是否报错
+  
+  
