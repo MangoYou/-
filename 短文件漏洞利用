@@ -1,0 +1,10 @@
+波浪号~  
+  Windows 支持以 8.3 格式（前缀8，后缀3）生成与 MS-DOS 兼容的（短）文件名，以允许基于 MS-DOS 或 16 位 Windows的程序访问这些文件。
+  在cmd下进入IIS网站根目录C:\inetpub\wwwroot输入“dir /x”即可看到短文件名的效果：
+  
+  由于短文件名的长度固定（xxxxxx~xxxx），因此攻击者可直接对短文件名进行暴力破解 ，从而访问对应的文件
+  
+相关漏洞：IIS短文件名泄露，windows+apache短文件泄露
+
+利用方式：
+  获取备份文件：如dedecms的备份文件http://xx.com/data/backupdata/admin~1.txt
