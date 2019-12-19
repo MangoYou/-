@@ -1,0 +1,25 @@
+开发者未对变量初始化，且能被用户控制
+在php中，register_globals项为on时尤为严重
+
+代码实例：
+<?php
+$x='xx';
+$y='yy';
+echo $x;
+echo $y;
+echo "<hr>";
+$y=$_GET['x']
+echo $y
+>
+
+
+例如曾经的dedecms
+http://xx.com/dede/install/index.php?insLockfile=1&step=3
+
+
+
+下载漏洞：
+  http://xxx.com/downfile.asp?file=download/123.doc
+  
+
+  
